@@ -1,16 +1,29 @@
-import "./Modal.css";
+export function Modal({ show, onClose, children }) {
+  if (!show) return null;
 
-export function Modal({ children, show, onClose }) {
-  if (show) {
-    return (
-      <div className="modal-background">
-        <section className="modal-main">
-          {children}
-          <button className="close" type="button" onClick={onClose}>
-            &#x2715;
-          </button>
-        </section>
+  return (
+    <div
+      className="modal d-block"
+      tabIndex="-1"
+      style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+      onClick={onClose}
+    >
+      <div
+        className="modal-dialog"
+        onClick={(e) => e.stopPropagation()} // prevent modal from closing when clicking inside
+      >
+        <div className="modal-content">
+          <div className="modal-header">
+            <button
+              type="button"
+              className="btn-close"
+              aria-label="Close"
+              onClick={onClose}
+            ></button>
+          </div>
+          <div className="modal-body">{children}</div>
+        </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
